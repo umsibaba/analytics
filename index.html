@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+.embedded-form {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -445,14 +453,18 @@
             margin-top: 60px;
         }
         
-        .embedded-form {
+        .documentation-container {
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pdf-fallback {
+            text-align: center;
+            margin-top: 15px;
+            font-style: italic;
         }
         
         #dashboard-showcase {
@@ -496,8 +508,8 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#changelog">Changelog</a></li>
-                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#dashboard-showcase">Dashboard</a></li>
+                    <li><a href="#documentation">Documentation</a></li>
                     <li><a href="#access">Access</a></li>
                 </ul>
             </nav>
@@ -604,7 +616,7 @@
                     <p><strong>Simple. Unified. Decisive.</strong></p>
                 </div>
                 <div class="about-image">
-                    <img src="/api/placeholder/400/320" alt="IN Analytics Dashboard">
+                    <img src="images/dashboard-overview.jpg" alt="IN Analytics Dashboard">
                 </div>
             </div>
         </div>
