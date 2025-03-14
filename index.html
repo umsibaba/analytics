@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IN Analytics Dashboard Suite</title>
+    <style>
+        :root {
+            --primary: #00d6b4;
+            --dark: #121212;
+            --light: #f5f5f5;
+            --accent: #3080c8;
+            --text: #333;
+            --text-light: #f5f5f5;
+            --danger: #e53935;
+            --success: #43a047;
+            --warning: #ffb300;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: 0;
+        }
+        
+        header .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            background-color: var(--dark);
+            color: var(--text-light);
+            position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--light));
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #00b89f;
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+        }
+        
+        .about {
+            background-color: #f9f9f9;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            text-align: center;
+            background-color: var(--dark);
+            border-radius: 8px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .changelog {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 40px 0;
+        }
+        
+        .changelog h2 {
+            color: var(--text-light);
+        }
+        
+        .changelog-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        
+        .changelog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .changelog-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .changelog-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .changelog-content p {
+            margin-bottom: 10px;
+        }
+        
+        .changelog-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .installation {
+            background-color: #f0f0f0;
+        }
+        
+        .installation-steps {
+            counter-reset: steps;
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .step-number {
+            flex: 0 0 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: var(--dark);
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+        
+        .step-number::before {
+            counter-increment: steps;
+            content: counter(steps);
+        }
+        
+        .step-content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .step-content h3 {
+            margin-bottom: 10px;
+        }
+        
+        .request-form {
+            background-color: var(--dark);
+            padding: 40px;
+            border-radius: 8px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+        
+        .form-control:focus {
+            outline: 2px solid var(--primary);
+        }
+        
+        .qr-code {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .qr-code img {
+            max-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--text-light);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        .theme-images, .demo-videos, .example-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .theme-image, .demo-video, .example-image {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .theme-image:hover, .demo-video:hover, .example-image:hover {
+            transform: translateY(-5px);
+        }
+        
+        .theme-image img, .demo-video img, .example-image img {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            display: block;
+        }
+        
+        .theme-image h4, .demo-video h4, .example-image h4 {
+            padding: 15px 20px 0;
+            color: var(--dark);
+        }
+        
+        .theme-image p, .demo-video p, .example-image p {
+            padding: 10px 20px 20px;
+            color: var(--text);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .dark-mode {
+            background-color: var(--dark);
+        }
+        
+        .dark-mode h4, .dark-mode p {
+            color: var(--text-light);
+        }
+        
+        .dashboard-demo, .real-examples, .theme-toggle {
+            margin-top: 60px;
+        }
+        
+        .embedded-form {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #dashboard-showcase {
+            background-color: #f0f0f0;
+        }
+        
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .theme-images, .demo-videos, .example-images {
+                grid-template-columns: 1fr;
+            }
+            
+            .embedded-form iframe {
+                height: 2000px; /* Adjust for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">IN <span>ANALYTICS</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#changelog">Changelog</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#access">Access</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>IN Analytics Dashboard Suite</h1>
+            <p>A powerful multi-factor dashboard suite built on TradingView and optimized for Indian markets. We transform complex decision-making by synthesizing vast amounts of data into one intelligent system.</p>
+            <a href="#access" class="btn">Request Access</a>
+        </div>
+    </section>
+    
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Universal Application</h3>
+                    <p>Signals work for any symbol or asset, dynamically adjusting itself to different market conditions and asset types.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Beginner Friendly</h3>
+                    <p>Clear insights simplify decision making with an intuitive interface designed for traders of all experience levels.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Advanced Insights</h3>
+                    <p>Combines technical analysis, economic indicators, fundamental data, and risk management into a unified system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Trade History PnL</h3>
+                    <p>Track profit and loss insights for past trades, helping you understand your trading performance over time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Auto Market Regime Detection</h3>
+                    <p>Automatically identifies market conditions and adjusts trading parameters based on current market regimes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Risk Management Tools</h3>
+                    <p>ATR-based stop loss calculation, position sizing, and multiple take-profit targets at different risk-reward ratios.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="dashboard-showcase">
+        <div class="container">
+            <h2 class="section-title">Dashboard in Action</h2>
+            
+            <div class="theme-toggle">
+                <h3>Works Beautifully in Both Light & Dark Mode</h3>
+                <div class="theme-images">
+                    <div class="theme-image dark-mode">
+                        <h4>Dark Mode</h4>
+                        <img src="images/dark-mode-dashboard.jpg" alt="IN Analytics Dashboard in Dark Mode">
+                        <p>Crisp visuals and reduced eye strain in low-light environments</p>
+                    </div>
+                    <div class="theme-image light-mode">
+                        <h4>Light Mode</h4>
+                        <img src="images/light-mode-dashboard.jpg" alt="IN Analytics Dashboard in Light Mode">
+                        <p>Perfect clarity and readability in bright environments</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-demo">
+                <h3>See the Dashboard in Action</h3>
+                <div class="demo-videos">
+                    <div class="demo-video">
+                        <h4>Adding the Analytics Panel</h4>
+                        <div class="video-container">
+                            <img src="images/aartind-example.gif" alt="Analytics Panel with AARTIND Example">
+                        </div>
+                        <p>See how the analytics panel provides clear signals in real-time</p>
+                    </div>
+                    <div class="demo-video">
+                        <h4>Live Trading Signals</h4>
+                        <div class="video-container">
+                            <img src="images/tvsmotor-example.gif" alt="Live Trading with TVSMOTOR Example">
+                        </div>
+                        <p>Watch the dashboard identify perfect buy and sell signals</p>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+    </section>
+    
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About IN Analytics</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>IN Analytics is a powerful multi-factor dashboard suite built on TradingView and optimized for Indian markets. We transform complex decision-making by synthesizing vast amounts of data in the form of technical signals, macroeconomic conditions, market regimes, company fundamentals and risk management into one intelligent system.</p>
+                    <p>Our algorithm adapts dynamically to changing market environments and your personal trading style, delivering high-probability signals when opportunities emerge. It doesn't just parse large amounts of data—we translate it into actionable intelligence that respects your risk parameters.</p>
+                    <p><strong>Simple. Unified. Decisive.</strong></p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/400/320" alt="IN Analytics Dashboard">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="changelog" id="changelog">
+        <div class="container">
+            <h2 class="section-title">Release Notes</h2>
+            
+            <div class="changelog-item">
+                <div class="changelog-header">
+                    <div class="changelog-title">Added new Adaptive Algo layer for Trend Exhaustion factoring</div>
+                    <div class="changelog-date">16 hours ago</div>
+                </div>
+                <div class="changelog-content">
+                    <p>The Adaptive Algo layer is like having three different smoke detectors in your house that each work in different ways, but you only need one of them to go off to know there's a problem. Here's what it does:</p>
+                    
+                    <h4>What Problem Does It Solve?</h4>
+                    <p>When prices move too far, too fast from their normal levels (or moving averages move too far apart from each other), the market often becomes "exhausted" and is likely to reverse or pause. But detecting this reliably is tricky.</p>
+                    
+                    <h4>How the Adaptive Method Works:</h4>
+                    <p>The Adaptive method combines three different approaches to detect when things are getting extreme:</p>
+                    <ul>
+                        <li>"Z-Score Method": Measures how unusual the current situation is compared to normal.</li>
+                        <li>Bollinger-based method: Tracks when prices move outside standard deviation bands.</li>
+                        <li>Momentum fade detection: Identifies when price movement velocity slows despite continued directional movement.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="changelog-item">
+                <div class="changelog-header">
+                    <div class="changelog-title">Enhanced Company Fundamentals Analysis</div>
+                    <div class="changelog-date">3 days ago</div>
+                </div>
+                <div class="changelog-content">
+                    <p>Improved the fundamental analysis components with:</p>
+                    <ul>
+                        <li>Added forward P/S ratio for growth stock valuation</li>
+                        <li>Integrated Piotroski score for financial strength assessment</li>
+                        <li>Enhanced cash flow to earnings ratio visualization</li>
+                        <li>Better detection of potential accounting red flags</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="changelog-item">
+                <div class="changelog-header">
+                    <div class="changelog-title">Multi-Timeframe Support Enhancement</div>
+                    <div class="changelog-date">1 week ago</div>
+                </div>
+                <div class="changelog-content">
+                    <p>Added improved support for multi-timeframe analysis:</p>
+                    <ul>
+                        <li>Added Weekly and Monthly timeframe support for all indicators</li>
+                        <li>Implemented timeframe alignment verification</li>
+                        <li>Visual highlighting when signals align across multiple timeframes</li>
+                        <li>Optional higher timeframe trend filter</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="installation" id="installation">
+        <div class="container">
+            <h2 class="section-title">Installation Guide</h2>
+            
+            <div class="prerequisites">
+                <h3>Prerequisites</h3>
+                <ul>
+                    <li>This analytics suite is built on top of TradingView platform and requires at least a free TradingView account.</li>
+                    <li>Free account can be opened at <a href="https://www.tradingview.com" target="_blank">tradingview.com</a></li>
+                    <li>Some features like the PineScreener beta for screening and watchlist indicators require a paid subscription. We highly recommend checking a month-long trial, after which discounts of up to 60% are provided.</li>
+                    <li>Purchasing during BlackFriday offers results in up to 70% off.</li>
+                </ul>
+            </div>
+            
+            <div class="installation-steps">
+                <h3>Step-by-Step Installation</h3>
+                
+                <div class="step">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <h3>Access the Bundle</h3>
+                        <p>Follow this link to the IN Analytics Bundle: <a href="#">IN ANALYTICS SUITE</a></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <h3>Add to Favorites</h3>
+                        <p>Add both indicators to your favorites for quick use on a chart. <a href="#">Learn more here</a>.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <h3>Request Access</h3>
+                        <p>Once added to favorites, please fill the request access form: <a href="#access">REQUEST ACCESS FORM</a></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number"></div>
+                    <div class="step-content">
+                        <h3>Wait for Confirmation</h3>
+                        <p>On receiving your user ID details, access will be granted. You'll receive a confirmation email with further instructions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="access">
+        <div class="container">
+            <h2 class="section-title">Access Request Form</h2>
+            
+            <div class="embedded-form">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSenclxOYMKqdQFEWC5isugwChl7TCyUZwvoxakcCXEnoMeHCg/viewform?embedded=true" width="100%" height="1747" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+            
+            <div class="qr-code">
+                <p>Or request access through this QR code:</p>
+                <img src="images/access-qr-code.svg" alt="QR Code for Access Request">
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 IN Analytics Dashboard Suite. All rights reserved.</p>
+            <p>Simple. Unified. Decisive.</p>
+            
+            <div class="social-links">
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Telegram</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Function to dynamically add changelog items
+        function addChangelogItem(title, date, content) {
+            const changelogContainer = document.querySelector('.changelog .container');
+            const newItem = document.createElement('div');
+            newItem.className = 'changelog-item';
+            newItem.innerHTML = `
+                <div class="changelog-header">
+                    <div class="changelog-title">${title}</div>
+                    <div class="changelog-date">${date}</div>
+                </div>
+                <div class="changelog-content">
+                    ${content}
+                </div>
+            `;
+            
+            // Insert after the section title
+            const sectionTitle = changelogContainer.querySelector('.section-title');
+            sectionTitle.insertAdjacentElement('afterend', newItem);
+        }
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
