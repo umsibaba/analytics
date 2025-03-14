@@ -1,12 +1,4 @@
-.embedded-form {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -471,6 +463,37 @@
             background-color: #f0f0f0;
         }
         
+        .embedded-form {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .embedded-form iframe {
+            width: 100%;
+            border: none;
+        }
+        
+        /* PDF Embed Styles */
+        .pdf-container {
+            width: 100%;
+            height: 800px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pdf-object {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
         @media (max-width: 768px) {
             header .container {
                 flex-direction: column;
@@ -495,6 +518,10 @@
             
             .embedded-form iframe {
                 height: 2000px; /* Adjust for mobile */
+            }
+            
+            .pdf-container {
+                height: 500px; /* Smaller height for mobile */
             }
         }
     </style>
@@ -601,8 +628,6 @@
                     </div>
                 </div>
             </div>
-            
-
         </div>
     </section>
     
@@ -729,6 +754,36 @@
                         <p>On receiving your user ID details, access will be granted. You'll receive a confirmation email with further instructions.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- New Documentation Section -->
+    <section id="documentation" class="documentation">
+        <div class="container">
+            <h2 class="section-title">Documentation</h2>
+            
+            <p>Complete documentation for the IN Analytics Dashboard Suite is available below. This comprehensive guide covers all features, installation procedures, and best practices for optimizing your trading strategy.</p>
+            
+            <div class="pdf-container">
+                <object class="pdf-object" data="docs/in-analytics-documentation.pdf" type="application/pdf">
+                    <div class="pdf-fallback">
+                        <p>It appears your browser doesn't support embedded PDFs. No worries!</p>
+                        <p>You can <a href="docs/in-analytics-documentation.pdf" target="_blank">download the PDF</a> to view it.</p>
+                    </div>
+                </object>
+            </div>
+            
+            <div class="documentation-highlights">
+                <h3>Documentation Highlights</h3>
+                <ul>
+                    <li>Complete parameter explanation</li>
+                    <li>Strategy backtesting guide</li>
+                    <li>Risk management recommendations</li>
+                    <li>Entry and exit signal interpretation</li>
+                    <li>Technical indicator details and formulas</li>
+                    <li>Troubleshooting and FAQ</li>
+                </ul>
             </div>
         </div>
     </section>
